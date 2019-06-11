@@ -31,35 +31,39 @@ namespace AsyncApp
             list = new List<string> {
                     "http://www.yahoo.co.jp/",
                     "http://www.google.co.jp/",
-                    "http://www.msn.co.jp/"
+                    "http://www.msn.co.jp/",
+                    "http://www.naver.jp/",
+                    //"http://www.cybozu.net/",
+                    "http://www.aol.jp/",
+                    "http://home.hi-ho.ne.jp/",
             };
         }
 
         private async void BtnGetUrl_Click(object sender, RoutedEventArgs e)
         {
             this.btnGetUrl.IsEnabled = false;
-            //list.ForEach(async x => {
-            //    this.ShowPage(x);
-            //    System.Threading.Thread.Sleep(3000);
-            //    }
-            //    );
             await Task.Run(()=> ShowPage(list));
-            
             this.btnGetUrl.IsEnabled = true;
         }
 
         private async Task ShowPage(List<string> urlList)
         {
             HttpClient httpClient = new HttpClient();
-            urlList.ForEach(async (url) =>
-            {
+            foreach(var url in urlList) { 
                 var html = await httpClient.GetStringAsync(url);
                 this.Dispatcher.Invoke((Action)(() => {
-                    //this.WebBrowser.is
                     this.WebBrowser.NavigateToString(html);
                 }));
-                System.Threading.Thread.Sleep(5000);
-            });
+                System.Threading.Thread.Sleep(3000);
+            }
+            //urlList.ForEach(async (url) =>
+            //{
+            //    var html = await httpClient.GetStringAsync(url);
+            //    this.Dispatcher.Invoke((Action)(() => {
+            //        this.WebBrowser.NavigateToString(html);
+            //    }));
+            //    System.Threading.Thread.Sleep(5000);
+            //});
         }
 
         private void BtnShowMessage_Click(object sender, RoutedEventArgs e)
