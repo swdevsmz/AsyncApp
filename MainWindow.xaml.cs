@@ -43,16 +43,23 @@ namespace AsyncApp
             //    System.Threading.Thread.Sleep(3000);
             //    }
             //    );
-            await ShowPage(list[0]);
-            System.Threading.Thread.Sleep(3000);
+            await Task.Run(()=> ShowPage(list));
+            
             this.btnGetUrl.IsEnabled = true;
         }
 
-        private async Task ShowPage(string url)
+        private async Task ShowPage(List<string> urlList)
         {
-            //HttpClient httpClient = new HttpClient();
-            //var html = await httpClient.GetStringAsync(url);
-            //this.WebBrowser.NavigateToString(html);
+            HttpClient httpClient = new HttpClient();
+            urlList.ForEach(async (url) =>
+            {
+                var html = await httpClient.GetStringAsync(url);
+                this.Dispatcher.Invoke((Action)(() => {
+                    //this.WebBrowser.is
+                    this.WebBrowser.NavigateToString(html);
+                }));
+                System.Threading.Thread.Sleep(5000);
+            });
         }
 
         private void BtnShowMessage_Click(object sender, RoutedEventArgs e)
