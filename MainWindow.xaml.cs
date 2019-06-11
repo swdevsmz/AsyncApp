@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,8 +36,13 @@ namespace AsyncApp
                     "http://www.naver.jp/",
                     //"http://www.cybozu.net/",
                     "http://www.aol.jp/",
-                    "http://home.hi-ho.ne.jp/",
+                    //"http://home.hi-ho.ne.jp/",
             };
+
+            // JavaScriptのエラー表示を抑止する
+            var axIWebBrowser2 = typeof(WebBrowser).GetProperty("AxIWebBrowser2", BindingFlags.Instance | BindingFlags.NonPublic);
+            var comObj = axIWebBrowser2.GetValue(this.WebBrowser, null);
+            comObj.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, comObj, new object[] { true });
         }
 
         private async void BtnGetUrl_Click(object sender, RoutedEventArgs e)
