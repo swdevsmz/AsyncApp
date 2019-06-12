@@ -1,16 +1,34 @@
-﻿<Window x:Class="AsyncApp.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AsyncApp"
+        xmlns:Controls="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls.WebView" x:Class="AsyncApp.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Name="btnGetUrl" Content="GetPage" HorizontalAlignment="Left" Margin="88,134,0,0" VerticalAlignment="Top" Width="75" Click="BtnGetUrl_Click"/>
-        <Button Name="btnShowMessage" Content="CountUp" HorizontalAlignment="Left" Margin="88,339,0,0" VerticalAlignment="Top" Width="75" Click="BtnShowMessage_Click"/>
-        <Label Name="lblCounter" Content="" HorizontalAlignment="Left" Margin="88,293,0,0" VerticalAlignment="Top" Width="75"/>
-        <WebBrowser Name="WebBrowser" HorizontalAlignment="Left" Height="316" Margin="195,43,0,0" VerticalAlignment="Top" Width="571"/>
+        Title="MainWindow" Height="740.551" Width="1024.893">
+    <Grid Margin="0,0,38.6,0.2">
+        <Button x:Name="GetUrlButton" Content="GetPage" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Width="75" Click="GetPageButton_Click"/>
+        <Button x:Name="CountUpButton" Content="CountUp" HorizontalAlignment="Left" Margin="10,214,0,0" VerticalAlignment="Top" Width="75" Click="CountUpButton_Click"/>
+        <Label x:Name="CounterLable" Content="" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Width="75">
+        </Label>
+        <ScrollViewer HorizontalAlignment="Left" Height="641" Margin="159,29,-55.2,0" VerticalAlignment="Top" Width="876" RenderTransformOrigin="0.5,0.5" HorizontalScrollBarVisibility ="Visible" >
+            <ScrollViewer.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.077"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0.399"/>
+                </TransformGroup>
+            </ScrollViewer.RenderTransform>
+            <Grid >
+                <Controls:WebView x:Name="WebView" HorizontalAlignment="Left" Height="566" VerticalAlignment="Top" Width="363" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="41,66,0,0"/>
+                <WebBrowser x:Name="WebBrowser" HorizontalAlignment="Left" Height="584" Margin="449,66,0,-8.4" VerticalAlignment="Top" Width="346" RenderTransformOrigin="-2.099,-0.309"/>
+                <Label Content="WebView" HorizontalAlignment="Left" Margin="41,26,0,0" VerticalAlignment="Top"/>
+                <Label Content="WebBrowser" HorizontalAlignment="Left" Margin="449,26,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </ScrollViewer>
+
 
     </Grid>
 </Window>

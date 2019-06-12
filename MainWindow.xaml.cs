@@ -23,13 +23,13 @@ namespace AsyncApp
     public partial class MainWindow : Window
     {
         private int counter;
-        private List<string> list;
+        private List<string> urlList;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            list = new List<string> {
+            urlList = new List<string> {
                     "http://www.yahoo.co.jp/",
                     "http://www.google.co.jp/",
                     "http://www.msn.co.jp/",
@@ -37,6 +37,7 @@ namespace AsyncApp
                     //"http://www.cybozu.net/",
                     "http://www.aol.jp/",
                     //"http://home.hi-ho.ne.jp/",
+                    "https://html5test.com/",
             };
 
             // JavaScriptのエラー表示を抑止する
@@ -45,20 +46,21 @@ namespace AsyncApp
             comObj.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, comObj, new object[] { true });
         }
 
-        private async void BtnGetUrl_Click(object sender, RoutedEventArgs e)
+        private async void GetPageButton_Click(object sender, RoutedEventArgs e)
         {
-            this.btnGetUrl.IsEnabled = false;
-            await Task.Run(()=> ShowPage(list));
-            this.btnGetUrl.IsEnabled = true;
+            this.GetUrlButton.IsEnabled = false;
+            await Task.Run(()=> ShowPage());
+            this.GetUrlButton.IsEnabled = true;
         }
 
-        private async Task ShowPage(List<string> urlList)
+        private async Task ShowPage()
         {
             HttpClient httpClient = new HttpClient();
-            foreach(var url in urlList) { 
+            foreach(var url in this.urlList) { 
                 var html = await httpClient.GetStringAsync(url);
                 this.Dispatcher.Invoke((Action)(() => {
                     this.WebBrowser.NavigateToString(html);
+                    this.WebView.NavigateToString(html);
                 }));
                 System.Threading.Thread.Sleep(3000);
             }
@@ -71,10 +73,9 @@ namespace AsyncApp
             //    System.Threading.Thread.Sleep(5000);
             //});
         }
-
-        private void BtnShowMessage_Click(object sender, RoutedEventArgs e)
+        private void CountUpButton_Click(object sender, RoutedEventArgs e)
         {
-            this.lblCounter.Content = this.counter += 1;
+            this.CounterLable.Content = this.counter += 1;
         }
     }
 }
