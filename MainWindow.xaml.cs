@@ -59,8 +59,10 @@ namespace AsyncApp
             foreach(var url in this.urlList) { 
                 var html = await httpClient.GetStringAsync(url);
                 this.Dispatcher.Invoke((Action)(() => {
-                    this.WebBrowser.NavigateToString(html);
-                    this.WebView.NavigateToString(html);
+                    //this.WebBrowser.NavigateToString(html);
+                    //this.WebView.NavigateToString(html);
+                    this.WebBrowser.Navigate(url);
+                    this.WebView.Navigate(url);
                 }));
                 System.Threading.Thread.Sleep(3000);
             }
